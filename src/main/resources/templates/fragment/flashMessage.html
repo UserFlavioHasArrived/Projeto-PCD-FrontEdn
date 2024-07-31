@@ -1,0 +1,15 @@
+<div th:fragment="flashMessage">
+    <div th:if="${successMessage}" class="toast p-1 text-bg-success" style="position: absolute; top: 1rem; right: 1rem; z-index: 9999999;" data-bs-delay="3000" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body" th:text="${successMessage}"></div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast" aria-label="Close"
+            ></button>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(".toast").toast("show");
+        });
+    </script>
+</div>

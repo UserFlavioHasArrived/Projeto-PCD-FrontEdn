@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: layout}">
+    <body th:fragment="content">     
+        <form th:action="@{/pessoa/update/{id}(id=${id})}" th:object="${pessoaForm}" method="post">
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h3 class="card-title">Formulário de Alteração</h3>
+                </div>
+                <div class="card-body">                    
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" id="nome" placeholder="Ex.: João dos Exemplos" th:field="*{nome}" class="form-control">
+                            <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/pessoa" class="btn btn-secondary">Voltar</a>
+                    <button class="btn btn-success" type="submit">Salvar</button>
+                </div>
+            </div>   
+        </form>
+    </body>
+</html>
