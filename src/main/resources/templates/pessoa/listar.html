@@ -34,11 +34,15 @@
                                 <div class="btn-group">
                                     <a class="btn btn-light" th:href="@{/pessoa/update/{id}(id=${pessoa.id})}"><i class="fa-solid fa-pen-ruler"></i> Alterar</a>
                                     <a class="btn btn-light" th:href="@{/pessoa/visualizar/{id}(id=${pessoa.id})}"><i class="fa-solid fa-magnifying-glass"></i> Visualizar</a>
-                                    <div th:if="${pessoa.ativo}"
+                                    <div th:if="${not pessoa.ativo}">
                                     <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i class="fa-solid fa-reply"></i> Recuperar</a>
+                                    </div>
+
+                                    <div th:if="${pessoa.ativo}">
+                                    <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i class="fa-solid fa-trash"></i> Remover</a>
+                                    </div>
                                 </div>
-                                <div th:if="${not pessoa.ativo}"
-                                <a class="btn btn-light" th:href="@{/pessoa/remover/{id}(id=${pessoa.id})}"><i class="fa-solid fa-trash"></i> Remover</a>
+                               
                             </div>
                             </td>                            
                         </tr>                           

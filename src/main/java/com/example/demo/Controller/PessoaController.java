@@ -121,11 +121,9 @@ public class PessoaController {
         redirectAttributes.addFlashAttribute("successMessage", "Recuperado com sucesso!");
         }
 
-        pessoaModel.setAtivo(false);
-
         this.pessoaRepository.save(pessoaModel);
 
-        redirectAttributes.addFlashAttribute("successMessage", "Excluído com sucesso!");
+        
 
         return "redirect:/pessoa";        
     }
