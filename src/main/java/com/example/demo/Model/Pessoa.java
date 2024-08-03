@@ -28,18 +28,22 @@ public class Pessoa {
 
     @Column(name = "ativo", nullable = false)
     @ColumnDefault("true")
-    
     private boolean ativo = true;
-    
-    @Column (name = "nascimento", nullable = false)
+
+    @Column(name = "nascimento", nullable = false)
     private LocalDate nascimento;
-    
-    @Column(name = "sexo",nullable = false)
+
+    @Column(name = "sexo", nullable = false)
     @ColumnDefault("2")
     @Enumerated(EnumType.ORDINAL)
-    private Sexo sexo = Sexo.NAO_INFORMADO;
+    private Sexo sexo = Sexo.NAO_INFOMADO;
 
-    public Pessoa(String nome,LocalDate nascimento, Sexo sexo){
+    @ManyToOne
+    @JoinColumn(name = "deficiencia_id")
+    private Deficiencia deficiencia;
+
+
+    public Pessoa(String nome, LocalDate nascimento, Sexo sexo){
         this.nome = nome;
         this.nascimento = nascimento;
         this.sexo = sexo;

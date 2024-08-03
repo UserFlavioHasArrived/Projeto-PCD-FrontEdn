@@ -15,33 +15,35 @@
                                 <input type="text" id="nome" placeholder="Ex.: João dos Exemplos" th:field="*{nome}" class="form-control">
                                 <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-body">                           
-                        <div class="row">
-                            <div class="mb-3">
-                                <label for="nome" class="form-label">Data de Nascimento:</label>
-                                <input type="date" id="nascimento" placeholder="Ex.: Dia/Mês/Ano" th:field="*{nascimento}"class="form-control">
+                            <div class="mb-3 col-md-3">
+                                <label for="nascimento" class="form-label">Data de nascimento:</label>
+                                <input type="date" id="nascimento" th:field="*{nascimento}" class="form-control">
                                 <div th:if="${errors != null && #fields.hasErrors('nascimento')}" th:errors="*{nascimento}"></div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-body">                           
-                        <div class="row">
-                            <div class="mb-3, col-md-3">
-                               <select>
+                            <div class="mb-3 col-md-3">
+                                <label for="sexo" class="form-label">Sexo:</label>
+                                <select id="sexo" class="form-select" th:field="*{sexo}">
                                     <option th:each="sexo : ${T(com.example.demo.Enum.Sexo).values()}"
                                         th:value="${sexo.codigo}"
                                         th:text="${sexo.descricao}">
-                                    </option>
-                                
-                                
+                                    </option>                    
                                 </select>
-                              
-                           
                             </div>
-                        </div>
+                             </div>
+                             </div>
+                           <div class="row">
+                            <div class="mb-3 col-md-3">
+                            <label for="deficiencia" class="form-label"> Deficiência:</label>
+                            <select id="deficiencia" class="form-select" th:field="*{deficiencia}">
+                            <option th:each="deficiencia : *{listDeficiencias}"
+                                th:value="${deficiencia.id}"
+                                th:text="${deficiencia.nome}">
+                            </option>                    
+                        </select>
                     </div>
+                </div>
+            </div>
+        </div>
                     <div class="card-footer d-flex justify-content-between">
                         <a href="/pessoa" class="btn btn-secondary">Voltar</a>
                         <button class="btn btn-success" type="submit">Salvar</button>

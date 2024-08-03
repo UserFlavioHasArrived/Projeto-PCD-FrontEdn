@@ -10,4 +10,9 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
+	@Override
+	public String toString() {
+		return "DemoApplication []";
+	}
+
 }

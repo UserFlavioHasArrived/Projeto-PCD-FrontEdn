@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.demo.Form.Pessoa.PessoaForm;
+
 import com.example.demo.Model.Pessoa;
+import com.example.demo.Repository.DeficienciaRepository;
 import com.example.demo.Repository.PessoaRepository;
 
 import jakarta.validation.Valid;
@@ -25,10 +27,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class PessoaController {
 
     @Autowired
+    private DeficienciaRepository deficienciaRepository;
+
+    @Autowired
     private PessoaRepository pessoaRepository;
 
     @GetMapping("/pessoa")
-    public String index(Model model,@RequestParam("display") Optional<String> display){
+    public String index(Model model, @RequestParam("display") Optional<String> display){
         String finalDisplay = display.orElse("true");
 
         List<Pessoa> pessoas = pessoaRepository.findByAtivo(Boolean.valueOf(finalDisplay));
@@ -42,13 +47,16 @@ public class PessoaController {
 
     @GetMapping("/pessoa/create")
     public String create(Model model) {
-        model.addAttribute("pessoaForm", new PessoaForm());
-
+        PessoaForm pessoaForm = new PessoaForm();
+        pessoaForm.setDeficiencias(deficienciaRepository);
+        
+        model.addAttribute("pessoaForm",pessoaForm);
         return "pessoa/create";
     }
     
     @PostMapping("/pessoa/create")
     public String create(@Valid PessoaForm pessoaForm, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        pessoaForm.setDeficiencias(deficienciaRepository);
         
         if(bindingResult.hasErrors()){
             model.addAttribute("errors", bindingResult.getAllErrors());
@@ -111,20 +119,19 @@ public class PessoaController {
     public String remover(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         Optional<Pessoa> pessoa = this.pessoaRepository.findById(id);
         Pessoa pessoaModel = pessoa.get();
-        
-        if(pessoaModel.isAtivo()){
-            pessoaModel.setAtivo(false);
-            redirectAttributes.addFlashAttribute("successMessage", "Excluído com sucesso!");
-        
+
+        if (pessoaModel.isAtivo()) {
+            pessoaModel.setAtivo(false);    
+            redirectAttributes.addFlashAttribute("successMessage", 
+            "Excluído com sucesso!");
         }else{
-        pessoaModel.setAtivo(true);
-        redirectAttributes.addFlashAttribute("successMessage", "Recuperado com sucesso!");
+            pessoaModel.setAtivo(true);
+            redirectAttributes.addFlashAttribute("successMessage", 
+            "Recuperado com sucesso!");
         }
-
-        this.pessoaRepository.save(pessoaModel);
-
         
-
+        this.pessoaRepository.save(pessoaModel);
+        
         return "redirect:/pessoa";        
     }
     
