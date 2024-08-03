@@ -4,50 +4,38 @@
       th:replace="~{layout/layout :: layout}">
     <body th:fragment="content">          
         <form th:action="@{/pessoa/create}" th:object="${pessoaForm}" method="post">
-                <div class="card mt-2">
-                    <div class="card-header">
-                        <h3 class="card-title">Formulário de Criação</h3>
-                    </div>
-                    <div class="card-body">                           
-                        <div class="row">
-                            <div class="mb-3">
-                                <label for="nome" class="form-label">Nome:</label>
-                                <input type="text" id="nome" placeholder="Ex.: João dos Exemplos" th:field="*{nome}" class="form-control">
-                                <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
-                            </div>
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h3 class="card-title">Formulário de Criação</h3>
+                </div>
+                <div class="card-body">                           
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" id="nome" placeholder="Ex.: João dos Exemplos" th:field="*{nome}" class="form-control">
+                            <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
                         </div>
-                    </div>
-                    <div class="card-body">                           
-                        <div class="row">
-                            <div class="mb-3">
-                                <label for="nome" class="form-label">Data de Nascimento:</label>
-                                <input type="date" id="nascimento" placeholder="Ex.: Dia/Mês/Ano" th:field="*{nascimento}"class="form-control">
-                                <div th:if="${errors != null && #fields.hasErrors('nascimento')}" th:errors="*{nascimento}"></div>
-                            </div>
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Data de Nascimento:</label>
+                            <input type="date" id="nascimento" placeholder="Ex.: Dia/Mês/Ano" th:field="*{nascimento}"class="form-control">
+                            <div th:if="${errors != null && #fields.hasErrors('nascimento')}" th:errors="*{nascimento}"></div>
                         </div>
-                    </div>
-                    <div class="card-body">                           
-                        <div class="row">
-                            <div class="mb-3, col-md-3">
-                               <select>
-                                    <option th:each="sexo : ${T(com.example.demo.Enum.Sexo).values()}"
-                                        th:value="${sexo.codigo}"
-                                        th:text="${sexo.descricao}">
-                                    </option>
-                                
-                                
-                                </select>
-                              
-                           
-                            </div>
+                        <div class="mb-3,col-md-3">
+                            <label for="sexo" class="form-label">Sexo</label>
+                            <select id="sexo" class="form-select" th:field="*{sexo}">
+                                <option th:each="sexo : ${T(com.example.demo.Enum.Sexo).values()}"
+                                    th:value="${sexo.codigo}"
+                                    th:text="${sexo.descricao}">
+                                </option>                             
+                            </select>                           
                         </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between">
-                        <a href="/pessoa" class="btn btn-secondary">Voltar</a>
-                        <button class="btn btn-success" type="submit">Salvar</button>
                     </div>
                 </div>
-            </div>    
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="/pessoa" class="btn btn-secondary">Voltar</a>
+                    <button class="btn btn-success" type="submit">Salvar</button>
+                </div>
+            </div>
         </form>
     </body>
 </html>
