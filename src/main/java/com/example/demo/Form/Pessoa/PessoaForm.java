@@ -9,6 +9,7 @@ import com.example.demo.Repository.DeficienciaRepository;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,18 @@ public class PessoaForm {
     private Deficiencia deficiencia;
     private List<Deficiencia> listDeficiencias;
 
+    @NotNull(message = "Preencha o campo CEP.")
+    @Size(min= 9, max = 9, message = "Preencha com um CEP valido.")
+
+    
+    private String cep;
+    private String uf;
+    private String cidade;
+    private String bairro;
+    private String logradouro;
+    private String numero;
+    private String complemento;
+
     public Pessoa toEntity(){
         Sexo sexo = Sexo.fromCodigo(this.sexo);
         Pessoa pessoa = new Pessoa(nome, nascimento, sexo);
@@ -45,7 +58,9 @@ public class PessoaForm {
     }
 
     public void setDeficiencias(DeficienciaRepository repository){
+    
         this.listDeficiencias = repository.findAll();
+        System.out.println(this.listDeficiencias.size());
 
     }
 
