@@ -1,74 +1,35 @@
 package com.example.demo.Model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.List;
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Entity
-@Table(
-        name = "endereco"
-)
-public class Endereco implements Serializable {
+@Table(name = "endereco")
+public class Endereco {
     @Id
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(
-            nullable = false
-    )
+
+    @Column(name = "logradouro", nullable = false)
     private String logradouro;
-    @Column(
-            nullable = false
-    )
+
+    @Column(name = "cep", nullable = false, length = 9)
     private String cep;
-    @Column(
-            nullable = true
-    )
-    private int numero;
+
+    @Column(name = "numero", nullable = true)
+    private String numero;
+
+    @Column(name = "complemento", nullable = true)
+    private String complemento;
 
     @ManyToOne
+    @JoinColumn(name = "bairro_id")
     private Bairro bairro;
- ;
-
-    public Endereco() {
-    }
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getLogradouro() {
-        return this.logradouro;
-    }
-
-    public String getCep() {
-        return this.cep;
-    }
-
-    public int getNumero() {
-        return this.numero;
-    }
-
-
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public void setLogradouro(final String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public void setCep(final String cep) {
-        this.cep = cep;
-    }
-
-    public void setNumero(final int numero) {
-        this.numero = numero;
-    }
-
-
-
 }

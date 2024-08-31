@@ -4,79 +4,114 @@
       th:replace="~{layout/layout :: layout}">
     <body th:fragment="content">          
         <form th:action="@{/pessoa/create}" th:object="${pessoaForm}" method="post">
-            <div class="card mt-2">
-                <div class="card-header">
-                    <h3 class="card-title">Formulário de Criação</h3>
-                </div>
-                <div class="card-body">                           
-                    <div class="row">
-                        <div class="mb-3 col-md-6">
-                            <label for="nome" class="form-label">Nome:</label>
-                            <input type="text" id="nome" placeholder="Ex.: João dos Exemplos" th:field="*{nome}" class="form-control">
-                            <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
-                        </div>
-                        <div class="mb-3 col-md-3">
-                            <label for="nascimento" class="form-label">Data de nascimento:</label>
-                            <input type="date" id="nascimento" th:field="*{nascimento}" class="form-control">
-                            <div th:if="${errors != null && #fields.hasErrors('nascimento')}" th:errors="*{nascimento}"></div>
-                        </div>
+                <div class="card mt-2">
+                    <div class="card-header">
+                        <h3 class="card-title">Formulário de Criação</h3>
                     </div>
-                    <div class="row">
-                        <div class="mb-3 col-md-3">
-                            <label for="sexo" class="form-label">Sexo:</label>
-                            <select id="sexo" class="form-select" th:field="*{sexo}">
-                                <option th:each="sexo : ${T(com.example.demo.Enum.Sexo).values()}"
+                    <div class="card-body">                           
+                        <div class="row">
+                            <div class="mb-3">
+                                <label for="nome" class="form-label">Nome:</label>
+                                <input type="text" id="nome" placeholder="Ex.: João dos Exemplos" th:field="*{nome}" class="form-control">
+                                <div th:if="${errors != null && #fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                            </div>
+                            <div class="mb-3 col-md-3">
+                                <label for="nascimento" class="form-label">Data de nascimento:</label>
+                                <input type="date" id="nascimento" th:field="*{nascimento}" class="form-control">
+                                <div th:if="${errors != null && #fields.hasErrors('nascimento')}" th:errors="*{nascimento}"></div>
+                            </div>
+                            <div class="mb-3 col-md-3">
+                                <label for="sexo" class="form-label">Sexo:</label>
+                                <select id="sexo" class="form-select" th:field="*{sexo}">
+                                    <option th:each="sexo : ${T(com.example.demo.Enum.Sexo).values()}"
                                         th:value="${sexo.codigo}"
                                         th:text="${sexo.descricao}">
-                                </option>                    
-                            </select>
-                        </div>
-                        <div class="mb-3 col-md-3">
-                            <label for="deficiencia" class="form-label">Deficiência:</label>
-                            <select id="deficiencia" class="form-select" th:field="*{deficiencia}">
-                                <option th:each="deficiencia : *{listDeficiencias}"
+                                    </option>                    
+                                </select>
+                            </div>
+                            <div class="mb-3 col-md-3">
+                                <label for="deficiencia" class="form-label">Deficiência:</label>
+                                <select id="deficiencia" class="form-select" th:field="*{deficiencia}">
+                                    <option th:each="deficiencia : *{listDeficiencias}"
                                         th:value="${deficiencia.id}"
-                                        th:text="${deficiencia.nome}">aa
-                                </option>                    
-                            </select>
+                                        th:text="${deficiencia.nome}">
+                                    </option>                    
+                                </select>
+                            </div>
+                            <div class="mb-3 col-md-3">
+                                <label for="cep" class="form-label">CEP:</label>
+                                <input id="cep" type="text" class="form-control" placeholder="99999-999" 
+                                th:field="*{cep}">
+                            </div>
+                            <div class="mb-2 col-md-2">
+                                <label for="uf" class="form-label">UF:</label>
+                                <input id="uf" readonly class="form-control" th:field="*{uf}">
+                            </div>
+                            <div class="mb-2 col-md-2">
+                                <label for="cidade" class="form-label">Cidade:</label>
+                                <input id="cidade" readonly class="form-control" th:field="*{cidade}">
+                            </div>
+                            <div class="mb-2 col-md-2">
+                                <label for="bairro" class="form-label">Bairro:</label>
+                                <input id="bairro" readonly class="form-control" th:field="*{bairro}">
+                            </div>
+                            <div class="mb-2 col-md-6">
+                                <label for="logradouro" class="form-label">Logradouro:</label>
+                                <input id="logradouro" readonly class="form-control" th:field="*{logradouro}">
+                            </div>
+                            <div class="mb-2 col-md-2">
+                                <label for="numero" class="form-label">Numero:</label>
+                                <input id="numero" class="form-control" th:field="*{numero}">
+                            </div>
+                            <div class="mb-2 col-md-6">
+                                <label for="complememto" class="form-label">Complemento:</label>
+                                <input id="complemento" class="form-control" th:field="*{complemento}">
+                            </div>
+
+
+                    
                         </div>
                     </div>
-                    <div class="mb-3 col-md-3">
-                        <label for="cep">CEP:</label>
-                        <input id="cep" type="text" class="form-control" placeholder="99999-999"
-                         th:field="*{cep}">
-                </div>
-                <input id="uf">
-                <input id="cidade">
-                <input id="bairro">
-                <input id="logradouro">
-               
-                <div class="card-footer d-flex justify-content-between">
-                    <a href="/pessoa" class="btn btn-secondary">Voltar</a>
-                    <button class="btn btn-success" type="submit">Salvar</button>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a href="/pessoa" class="btn btn-secondary">Voltar</a>
+                        <button class="btn btn-success" type="submit">Salvar</button>
+                    </div>
                 </div>
             </div>    
         </form>
         <script>
             $("#cep").inputmask("99999-999")
-            .on('change',function(){
-                let cep = $('#cep').val();
-                cep.replace("-","");
+            .on('change', function(){
+                let cep = $("#cep").val();
+                cep.replace("-", "");
+
                 $.ajax({
                     dataType: "json",
                     type: "get",
-                    url:  "https:\\viacep.com.br/ws/" + cep + "/json/",
+                    url: "https://viacep.com.br/ws/" + cep + "/json/",
                     success: function(response){
-                        $("#uf").val(response['uf']);
-                        document.getElementById("bairro").value = response['bairro'];
-                        $("#logradouro").val(response['logradouro']);
-                        $("#cidade").val(response['localidade']);
-                        $("#uf").val(response['uf']);
-                      
-                    }
+                        if(!response['erro']){   
+                            if(response['bairro'] == ""){
+                                $("#bairro").attr("readonly", false);
+                            }else{
+                                $("#bairro").attr("readonly", true);
+                                document.getElementById("bairro").value = response['bairro'];
+                            }                                
+                            
+                            if(response['logradouro'] == ""){
+                                $("#logradouro").attr("readonly", false);
+                            }else{
+                                $("#logradouro").attr("readonly", true);
+                                $("#logradouro").val(response['logradouro']);
+                            }
 
-                })
+                            $("#cidade").val(response['localidade']);
+                            $("#uf").val(response['uf']);                       
+                        }                        
+                    }
+                });                
             });
+        
         </script>
     </body>
 </html>
