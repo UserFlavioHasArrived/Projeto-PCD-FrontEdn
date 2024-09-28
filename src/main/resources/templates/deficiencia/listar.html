@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Deficiências</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-5">
+        <h1>Lista de Deficiências</h1>
+        <a th:href="@{/deficiencia/criar}" class="btn btn-success mb-3">Criar Deficiência</a>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="deficiencia : ${deficiencias}">
+                    <td th:text="${deficiencia.id}"></td>
+                    <td th:text="${deficiencia.nome}"></td>
+                    <td th:text="${deficiencia.categoria}"></td>
+                    <td>
+                        <a th:href="@{/deficiencias/editar/{id}(id=${deficiencia.id})}" class="btn btn-primary">Editar</a>
+                        <a th:href="@{/deficiencias/deletar/{id}(id=${deficiencia.id})}" class="btn btn-danger">Deletar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

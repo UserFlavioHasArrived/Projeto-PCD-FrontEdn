@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de Deficiência</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container my-5">
+        <form th:action="@{/deficiencia/criar}" th:object="${deficiencia}" method="post">
+            <div class="form-group">
+                <label for="nome">Nome da Deficiência</label>
+                <input type="text" class="form-control" id="nome" th:field="*{nome}" required>
+            </div>
+            <div class="mb-3 col-md-3">
+                <label for="categoria" class="form-label">Deficiência:</label>
+                <select id="categoria" class="form-select" th:field="*{categoria}">
+                    <option th:each="categoria : *{listCategorias}"
+                        th:value="${categoria.id}"
+                        th:text="${categoria.nome}">
+                    </option>                    
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary" >Salvar</button>
+        </form>
+    </div>
+</body>
+</html>
