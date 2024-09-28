@@ -48,7 +48,7 @@ public class DeficienciaController {
         List<Categoria> listaCategorias = categoriaRepository.findAll();
         deficienciaForm.setListCategorias(listaCategorias);
         model.addAttribute("deficiencia", deficienciaForm);
-        return "deficiencia/create";
+        return "deficiencia/criar";
     }
 
     @PostMapping("/criar")
@@ -59,17 +59,7 @@ public class DeficienciaController {
 
         deficienciaRepository.save(deficienciaForm);
         redirectAttributes.addFlashAttribute("successMessage", "Deficiência salva com sucesso!");
-        return "redirect:/deficiencias";
+        return "redirect:/deficiencia/listar";
     }
-    @GetMapping("/editar/{id}")
-    public String editar(@PathVariable Long id, Model model){
-        Optional<Pessoa> pessoa = pessoaRepository.findById(id);
-
-        PessoaForm pessoaForm = new PessoaForm(pessoa.get());
-
-        model.addAttribute("pessoaForm", pessoaForm);
-        model.addAttribute("id", pessoa.get().getId());
-
-        return "/pessoa/update";
-    }
+    
 }
