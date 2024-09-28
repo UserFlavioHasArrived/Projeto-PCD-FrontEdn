@@ -48,7 +48,7 @@ public class DeficienciaController {
     }
 
     @PostMapping("/criar")
-    public String salvar(@Valid Deficiencia deficiencia, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String salvar(@Valid Deficiencia deficienciaForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "deficiencia/criar";
         }
