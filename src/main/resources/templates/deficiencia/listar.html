@@ -21,10 +21,11 @@
                 <tr th:each="deficiencia : ${deficiencias}">
                     <td th:text="${deficiencia.id}"></td>
                     <td th:text="${deficiencia.nome}"></td>
-                    <td th:text="${deficiencia.categoria}"></td>
+                    <td th:text="${deficiencia.categoria.nome}"></td>
                     <td>
-                        <a th:href="@{/deficiencias/editar/{id}(id=${deficiencia.id})}" class="btn btn-primary">Editar</a>
-                        <a th:href="@{/deficiencias/deletar/{id}(id=${deficiencia.id})}" class="btn btn-danger">Deletar</a>
+                        <a th:href="@{/deficiencia/visualizar/{id}(id=${deficiencia.id})}" class="btn btn-info">Visualizar</a>
+                        <a th:href="@{/deficiencia/editar/{id}(id=${deficiencia.id})}" class="btn btn-primary">Editar</a>
+                        <a th:href="@{/deficiencia/deletar/{id}(id=${deficiencia.id})}" class="btn btn-danger">Deletar</a>
                     </td>
                 </tr>
             </tbody>

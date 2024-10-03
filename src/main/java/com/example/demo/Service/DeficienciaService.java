@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Form.DeficienciaForm;
 import com.example.demo.Model.Deficiencia;
-
+import com.example.demo.Model.Pessoa;
 import com.example.demo.Repository.DeficienciaRepository;
 
 
@@ -44,4 +44,5 @@ public class DeficienciaService {
 
         return deficiencia;
     }
+    
 }

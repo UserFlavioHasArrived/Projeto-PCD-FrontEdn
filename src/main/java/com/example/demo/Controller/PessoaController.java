@@ -14,7 +14,6 @@ import com.example.demo.Form.Pessoa.PessoaForm;
 import com.example.demo.Model.Deficiencia;
 import com.example.demo.Model.Pessoa;
 import com.example.demo.Repository.DeficienciaRepository;
-import com.example.demo.Repository.EnderecoRepository;
 import com.example.demo.Repository.PessoaRepository;
 import com.example.demo.Service.PessoaService;
 
