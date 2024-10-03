@@ -1,13 +1,13 @@
 package com.example.demo.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Form.DeficienciaForm;
 import com.example.demo.Model.Deficiencia;
-import com.example.demo.Model.Pessoa;
 import com.example.demo.Repository.DeficienciaRepository;
 
 
@@ -44,5 +44,16 @@ public class DeficienciaService {
 
         return deficiencia;
     }
-    
+
+    public Optional<Deficiencia> visualizar(Long id) {
+        return deficienciaRepository.findById(id);
+    }
+    public Optional<Deficiencia> visualizar(Long id) {
+        return deficienciaRepository.findById(id);
+    }
+
+    public void excluir(Long id) {
+        deficienciaRepository.deleteById(id);
+    }
+
 }

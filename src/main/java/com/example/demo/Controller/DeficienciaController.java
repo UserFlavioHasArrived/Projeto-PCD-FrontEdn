@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -94,15 +95,37 @@ public class DeficienciaController {
         redirectAttributes.addFlashAttribute("successMessage", "Alterado com sucesso!");
         return "redirect:/deficiencia/listar";
     }
-    @GetMapping("/visualizar{id}")
+     @GetMapping("/pessoa/visualizar/{id}")
     public String visualizar(@PathVariable Long id, Model model){
-        Optional<Deficiencia> deficiencia = deficienciaRepository.findById(id);
+        Optional<Pessoa> pessoa = pessoaRepository.findById(id);
 
-        DeficienciaForm deficienciaForm = new DeficienciaForm(deficiencia.get());
+        PessoaForm pessoaForm = new PessoaForm(pessoa.get());
 
-        model.addAttribute("deficienciaForm", deficienciaForm);
-        model.addAttribute("id", deficiencia.get().getId());
+        model.addAttribute("pessoaForm", pessoaForm);
+        model.addAttribute("id", pessoa.get().getId());
 
-        return "/visualizar";
+        return "/pessoa/visualizar";
+    }
+     @GetMapping("/visualizar/{id}")
+    public ResponseEntity<Deficiencia> visualizar(@PathVariable Long id) {
+        Optional<Deficiencia> deficiencia = deficienciaService.visualizar(id);
+        if (deficiencia.isPresent()) {
+            return ResponseEntity.ok(deficiencia.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+        
+    }
+    @GetMapping("/excluir/{id}")
+    public String excluir(@PathVariable Long id, Model model) {
+        Optional<Deficiencia> deficiencia = deficienciaService.visualizar(id);
+        model.addAttribute("deficiencia", deficiencia.orElse(null));
+        return "excluir"; // Nome do template HTML para excluir
+    }
+
+    @PostMapping("/excluir/{id}")
+    public String excluirConfirmado(@PathVariable Long id) {
+        deficienciaService.excluir(id);
+        return "redirect:/deficiencia/listar"; // Redirecionar após exclusão
     }
 }
