@@ -1,26 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Excluir Deficiência</title>
+    <title>Lista de Deficiências Excluídas</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Excluir Deficiência</h1>
-        <div th:if="${deficiencia != null}">
-            <h2 th:text="${deficiencia.descricao}">Descrição da Deficiência</h2>
-            <p>ID: <span th:text="${deficiencia.id}">1</span></p>
-            <form th:action="@{/deficiencia/excluir/{id}(id=${deficiencia.id})}" method="post">
-                <p>Tem certeza que deseja excluir?</p>
-                <button type="submit" class="btn btn-danger">Excluir</button>
-                <a href="/deficiencia/listar" class="btn btn-secondary">Cancelar</a>
-            </form>
-        </div>
-        <div th:if="${deficiencia == null}">
-            <p>Deficiência não encontrada.</p>
-            <a href="/deficiencia/listar" class="btn btn-primary">Voltar</a>
-        </div>
+    <div class="container my-5">
+        <h1>Lista de Deficiências</h1>
+        <a th:href="@{deficiencia/listar/}" class="btn btn-success mb-3">Restaurar</a>
+        </table>
     </div>
 </body>
 </html>

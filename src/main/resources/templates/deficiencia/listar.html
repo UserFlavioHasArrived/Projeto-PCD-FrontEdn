@@ -8,6 +8,7 @@
     <div class="container my-5">
         <h1>Lista de Deficiências</h1>
         <a th:href="@{/deficiencia/criar}" class="btn btn-success mb-3">Criar Deficiência</a>
+        <a th:href="@{/deficiencia/listar?display=false}"class="btn btn-info mb-3">Exibir Excluídos</a>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -22,10 +23,10 @@
                     <td th:text="${deficiencia.id}"></td>
                     <td th:text="${deficiencia.nome}"></td>
                     <td th:text="${deficiencia.categoria.nome}"></td>
-                    <td>
-                        <a th:href="@{/deficiencia/visualizar/{id}(id=${deficiencia.id})}" class="btn btn-info">Visualizar</a>
+                    <td>                       
                         <a th:href="@{/deficiencia/editar/{id}(id=${deficiencia.id})}" class="btn btn-primary">Editar</a>
                         <a th:href="@{/deficiencia/deletar/{id}(id=${deficiencia.id})}" class="btn btn-danger">Deletar</a>
+                        
                     </td>
                 </tr>
             </tbody>

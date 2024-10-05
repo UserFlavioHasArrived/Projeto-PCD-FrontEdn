@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,10 @@ public class Deficiencia {
 
     @Column(nullable = false)
     private String nome;
+
+    @Column(name = "ativo", nullable = false)
+    @ColumnDefault("true")
+    private boolean ativo = true;
 
     @ManyToOne
     @JoinColumn(name = "categoria_id")

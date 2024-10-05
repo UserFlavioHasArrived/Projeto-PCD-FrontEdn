@@ -47,9 +47,7 @@ public class DeficienciaService {
 
     public Optional<Deficiencia> visualizar(Long id) {
         return deficienciaRepository.findById(id);
-    }
-    public Optional<Deficiencia> visualizar(Long id) {
-        return deficienciaRepository.findById(id);
+   
     }
 
     public void excluir(Long id) {

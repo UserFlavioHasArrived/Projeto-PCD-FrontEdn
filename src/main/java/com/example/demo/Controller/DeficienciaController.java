@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.Form.DeficienciaForm;
@@ -38,8 +39,10 @@ public class DeficienciaController {
     private DeficienciaService deficienciaService;
 
     @GetMapping("/listar")
-    public String listar(Model model) {
-        List<Deficiencia> deficiencias = deficienciaRepository.findAll();
+    public String index(Model model, @RequestParam("display") Optional<String> display){
+        String finalDisplay = display.orElse("true");
+
+        List<Deficiencia> deficiencias = deficienciaRepository.findByAtivo(Boolean.valueOf(finalDisplay));
         model.addAttribute("deficiencias", deficiencias);
         return "deficiencia/listar";
     }
@@ -65,7 +68,7 @@ public class DeficienciaController {
         return "redirect:/deficiencia/listar";
     }
 
-     @GetMapping("/editar/{id}")
+    @GetMapping("/editar/{id}")
     public String update(@PathVariable Long id, Model model){
 
         Optional<Deficiencia> deficiencia = deficienciaRepository.findById(id);
@@ -92,40 +95,42 @@ public class DeficienciaController {
         }
 
         deficienciaService.update(deficienciaForm, id);
-        redirectAttributes.addFlashAttribute("successMessage", "Alterado com sucesso!");
-        return "redirect:/deficiencia/listar";
+            redirectAttributes.addFlashAttribute("successMessage", "Alterado com sucesso!");
+             return "redirect:/deficiencia/listar";
     }
-     @GetMapping("/pessoa/visualizar/{id}")
-    public String visualizar(@PathVariable Long id, Model model){
-        Optional<Pessoa> pessoa = pessoaRepository.findById(id);
+    @GetMapping("/visualizar/{id}")
+    public String visualizar(@PathVariable Long id, Model model) {
 
-        PessoaForm pessoaForm = new PessoaForm(pessoa.get());
+        Optional<Deficiencia> deficiencia = deficienciaRepository.findById(id);
+        DeficienciaForm deficienciaForm = new DeficienciaForm(deficiencia.get());
+    
+        List<Categoria> listaCategoria = categoriaRepository.findAll();
+        deficienciaForm.setListCategorias(listaCategoria);
 
-        model.addAttribute("pessoaForm", pessoaForm);
-        model.addAttribute("id", pessoa.get().getId());
 
-        return "/pessoa/visualizar";
+        model.addAttribute("deficienciaForm", deficienciaForm);
+        model.addAttribute("id", deficiencia.get().getId());
+
+        return "/deficiencia/listar";
     }
-     @GetMapping("/visualizar/{id}")
-    public ResponseEntity<Deficiencia> visualizar(@PathVariable Long id) {
-        Optional<Deficiencia> deficiencia = deficienciaService.visualizar(id);
-        if (deficiencia.isPresent()) {
-            return ResponseEntity.ok(deficiencia.get());
+
+    @GetMapping("/deletar/{id}")
+    public String remover(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        Optional<Deficiencia> deficiencia = this.deficienciaRepository.findById(id);
+        Deficiencia deficienciaModel = deficiencia.get();
+
+        if (deficienciaModel.isAtivo()) {
+            deficienciaModel.setAtivo(false);
+            redirectAttributes.addFlashAttribute("successMessage",
+                    "Excluído com sucesso!");
         } else {
-            return ResponseEntity.notFound().build();
+            deficienciaModel.setAtivo(true);
+            redirectAttributes.addFlashAttribute("successMessage",
+                    "Recuperado com sucesso!");
         }
-        
-    }
-    @GetMapping("/excluir/{id}")
-    public String excluir(@PathVariable Long id, Model model) {
-        Optional<Deficiencia> deficiencia = deficienciaService.visualizar(id);
-        model.addAttribute("deficiencia", deficiencia.orElse(null));
-        return "excluir"; // Nome do template HTML para excluir
-    }
 
-    @PostMapping("/excluir/{id}")
-    public String excluirConfirmado(@PathVariable Long id) {
-        deficienciaService.excluir(id);
-        return "redirect:/deficiencia/listar"; // Redirecionar após exclusão
+        this.deficienciaRepository.save(deficienciaModel);
+
+        return "redirect:/deficiencia/listar";
     }
 }
